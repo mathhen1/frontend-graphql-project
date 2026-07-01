@@ -26,5 +26,24 @@ const mutationCreateUser = `
     }
 `
 
+const mutationDeleteUser = `
+    mutation deleteUser ($id: Int!) {
+        deleteUser(id: $id) {
+            id
+            name
+            email
+        }
+    }
+`
 
-export { queryGetUsers, queryGetUser, mutationCreateUser }
+const mutationDeleteUsers = `
+    mutation deleteUsers {
+        deleteUsers {
+            id
+            name
+            email
+        }
+    }
+`
+
+export { queryGetUsers, queryGetUser, mutationCreateUser, mutationDeleteUser, mutationDeleteUsers }
