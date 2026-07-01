@@ -1,4 +1,4 @@
-import { mutationCreateUser, queryGetUser, queryGetUsers } from "./queries"
+import { mutationCreateUser, mutationDeleteUsers, queryGetUser, queryGetUsers } from "./queries"
 
 export const getUsers = async () => {
     try {
@@ -56,5 +56,21 @@ export const createUser = async ({ name, email }: Pick<User, "name" | "email">) 
         }
     } catch (err) {
         console.log("getUserErr: ", err)
+    }
+}
+
+export const deleteUsers = async () => {
+    try {
+        const res = await fetch("http://localhost:9000/graphql", {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ query: mutationDeleteUsers })
+        })
+
+        const { data } = await res.json()
+
+        return data
+    } catch (err) {
+        console.log(err)
     }
 }
