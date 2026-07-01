@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { createUser, getUser, getUsers } from "./api/usersApi"
+import { createUser, deleteUsers, getUser, getUsers } from "./api/usersApi"
 
 function App() {
   const [users, setUsers] = useState<User[]>([])
@@ -26,9 +26,12 @@ function App() {
 
   const handleCreate = async (e: any) => {
     e.preventDefault()
-    const res = await createUser(dataForm)
+    await createUser(dataForm)
+  }
 
-    console.log(res)
+  const handleDeleteAll = async (e: any) => {
+    e.preventDefault()
+    await deleteUsers()
   }
 
   return (
@@ -49,7 +52,10 @@ function App() {
             onChange={(e) => setDataForm({ ...dataForm, [e.target.name]: e.target.value })} />
         </div>
 
-        <button type="submit" className="border p-1 rounded-sm text-xs" onClick={handleCreate}>Cadastrar</button>
+        <button type="submit" className="border p-1 rounded-sm text-xs"
+          onClick={handleCreate}>Cadastrar</button>
+        <button type="button" className="border p-1 rounded-sm text-xs"
+          onClick={handleDeleteAll}>Deletar todos</button>
 
         <span className="w-10/12 h-px border"></span>
 
@@ -72,6 +78,7 @@ function App() {
         {users.map(u => {
           return <li key={u.id} className="flex flex-row gap-2">
             {u.name}
+            <button className=" text-xs border p-1">X</button>
           </li>
         })}
       </ul>
